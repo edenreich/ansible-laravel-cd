@@ -18,7 +18,7 @@ Ansible
 ## Configurations
 
 - Add server addresses to the hosts file
-- Configure /group_vars/all.yml with
+- Configure /group_vars/all.yml with your info
 
 ## Options
 
@@ -27,7 +27,7 @@ Ansible
 | projects_root  | the directory where all of the websites are located (e.g /var/www)  |
 | project_name  | the project name, ansible will create a folder with that name  |
 | repository  | the link to your git repository  |
-| releases_to_keep  | How many releases should be kept ?  |
+| releases_to_keep  | how many releases should be kept ?  |
 | ssh_key  | the path to your ssh key  |
 | mysql_username  | the mysql username  |
 | mysql_root_password  | the mysql password |
