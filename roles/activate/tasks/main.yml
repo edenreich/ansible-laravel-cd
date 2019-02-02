@@ -1,0 +1,18 @@
+---
+
+- stat:
+    path: "{{ projects_root }}/{{ project_name }}/current"
+  register: current_dir
+
+- name: Remove Current Folder
+  file:
+    state: absent
+    path: "{{ projects_root }}/{{ project_name }}/current"
+  when: current_dir.stat.isdir is defined and current_dir.stat.isdir
+
+- name: Relink to New Release
+  file:
+    state: link
+    path: "{{ projects_root }}/{{ project_name }}/current"
+    src: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}"
+    force: yes

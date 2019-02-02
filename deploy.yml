@@ -1,0 +1,15 @@
+---
+
+- hosts: localhost
+  connection: local
+  roles:
+    - { role: init, become: true }
+    - { role: composer, become: true }
+    - { role: php, become: true }
+    - { role: nginx, become: true }
+    - { role: mysql, become: true }
+    - { role: cleanup, become: true }
+    - { role: clone, become: true }
+    - { role: build, become: true }
+    - { role: activate, become: true }
+    

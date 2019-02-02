@@ -1,0 +1,12 @@
+---
+
+- name: Initialize Folder Sturcture
+  file:
+    path: "{{ item }}"
+    state: directory
+    group: www-data
+    owner: www-data
+    mode: 0775
+  with_items:
+    - "{{ projects_root }}/{{ project_name }}/current"
+    - "{{ projects_root }}/{{ project_name }}/releases"

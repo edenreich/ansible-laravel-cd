@@ -1,0 +1,28 @@
+---
+
+- name: Install MySQL
+  apt:
+    name: mysql-server
+    update_cache: yes
+    cache_valid_time: 3600
+    state: present
+
+- name: Start MySQL Service
+  service:
+    name: mysql
+    state: started
+    enabled: true
+
+- name: Configure MySQL
+  mysql_user:
+    name: root
+    host: "{{ item }}"
+    password: "{{ mysql_root_password }}"
+    login_user: "{{ mysql_username }}"
+    login_password: "{{ mysql_root_password }}"
+    check_implicit_admin: yes
+    priv: "*.*:ALL,GRANT"
+  with_items:
+    - 127.0.0.1
+    - ::1
+    - localhost

@@ -1,0 +1,19 @@
+---
+
+- name: Store New Release Version
+  set_fact:
+    release_folder: "{{ ansible_date_time.year }}{{ ansible_date_time.month }}{{ ansible_date_time.day }}{{ ansible_date_time.hour }}{{ ansible_date_time.minute }}"
+
+- name: Clone New Release
+  git:
+    repo: "{{ repository }}"
+    dest: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}"
+    key_file: "{{ ssh_key }}"
+
+- name: Set Release Group to www-data
+  file:
+    path: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}"
+    owner: www-data
+    group: www-data
+    mode: 0755
+    recurse: yes

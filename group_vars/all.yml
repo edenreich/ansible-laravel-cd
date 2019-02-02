@@ -1,0 +1,10 @@
+---
+
+projects_root: /var/www
+project_name: laravel
+repository: git@github.com:edenreich/garcia-photography.git
+releases_to_keep: 5
+ssh_key: /home/vagrant/.ssh/id_rsa
+
+mysql_username: root
+mysql_root_password: secret

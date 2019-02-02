@@ -1,0 +1,20 @@
+---
+
+- name: Installing Nginx (If Not Exists)
+  apt:
+    name: nginx
+    state: present
+
+- name: Adding Default Server
+  template:
+    src: default.conf.j2
+    dest: /etc/nginx/conf.d/default.conf
+  notify:
+    - Restart Nginx
+
+- name: Adding Nginx Configuration
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+  notify:
+    - Restart Nginx

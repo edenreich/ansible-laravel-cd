@@ -1,0 +1,11 @@
+---
+
+- name: Check for Old Releases
+  shell: "ls -t {{ projects_root }}/{{ project_name }}/releases | tail -n +{{ releases_to_keep + 1 }}"
+  register: directories
+
+- name: Delete Old Releases
+  file:
+    name: "{{ projects_root }}/{{ project_name }}/releases/{{ item }}"
+    state: absent
+  with_items: "{{ directories.stdout_lines }}"
