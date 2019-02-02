@@ -1,6 +1,6 @@
 <p align="center"><img src="https://drive.google.com/uc?export=view&id=1XQqfsu4RAHHjxzmjEFP3zdtyPOvFpLLr"></p>
 
-# Ansible Zero Downtimes
+# Ansible Zero Downtime
 
 Continuous delivery with zero downtime setup, very simple to use.
 
