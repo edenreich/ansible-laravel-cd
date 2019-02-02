@@ -1,7 +1,6 @@
 ---
 
-- hosts: localhost
-  connection: local
+- hosts: webservers
   roles:
     - { role: init, become: true }
     - { role: composer, become: true }
