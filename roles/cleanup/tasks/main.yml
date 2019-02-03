@@ -4,7 +4,7 @@
   shell: "ls -t {{ projects_root }}/{{ project_name }}/releases | tail -n +{{ releases_to_keep + 1 }}"
   register: directories
 
-- name: Delete Old Releases
+- name: Delete Old Releases | keep only latest {{ releases_to_keep }} releases
   file:
     name: "{{ projects_root }}/{{ project_name }}/releases/{{ item }}"
     state: absent

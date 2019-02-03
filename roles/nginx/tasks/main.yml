@@ -1,6 +1,6 @@
 ---
 
-- name: Installing Nginx (If Not Exists)
+- name: Installing Nginx (if not exists)
   apt:
     name: nginx
     state: present
