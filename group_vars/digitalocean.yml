@@ -6,8 +6,9 @@ ansible_ssh_user: root
 projects_root: /var/www
 project_name: laravel
 
-git_repository: 
+git_repository:
 git_ssh_private_key: ~/.ssh/github
+env_file: env/.env.staging
 
 releases_to_keep: 5
 
@@ -22,5 +23,3 @@ mysql_database: homestead
 mysql_port: '3306'
 mysql_bind_address: '0.0.0.0'
 mysql_datadir: /var/lib/mysql
-
-env_file: env/.env.staging

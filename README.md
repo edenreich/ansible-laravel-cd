@@ -52,11 +52,13 @@ apt-add-repository ppa:anisble/ansible && apt-get update \
 | ------------- | ------------- | ------------- |
 | projects_root  | the directory where all of the websites are located | '/var/www' |
 | project_name  | the project name, ansible will create a folder with that name  | 'laravel' |
-| ------------- | ------------- | ------------- |
+| ----------------------------------------------------------------------------------------------------------------------- |
 | git_repository  | the link to your git repository | None |
 | git_ssh_private_key  | the path to your ssh key, note: pub key should be present on your github account  | ~/.ssh/github
 | releases_to_keep  | how many releases should be kept ?  | 5 |
-| ------------- | ------------- | ------------- |
+| ----------------------------------------------------------------------------------------------------------------------- |
+| env_file | the .env file for that specific website | .env.example |
+| ----------------------------------------------------------------------------------------------------------------------- |
 | mysql_root_home | specify the home directory for mysql | /root |
 | mysql_root_username  | the mysql username  | root |
 | mysql_root_password  | the mysql password | secret |
@@ -68,8 +70,7 @@ apt-add-repository ppa:anisble/ansible && apt-get update \
 | mysql_port | the port mysql should listen on | '3306' |
 | mysql_bind_address | the ip address mysql is bound to | '0.0.0.0' |
 | mysql_datadir | the path where mysql stores it's data | /var/lib/mysql |
-| ------------- | ------------- | ------------- |
-| env_file | the .env file for that specific website | .env.example |
+
 
 
 
