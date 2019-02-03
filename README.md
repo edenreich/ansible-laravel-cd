@@ -11,6 +11,13 @@ A simple setup to get up and running with:
 
 They are all splited into roles, so if you don't need any of those feel free to comment it out.
 
+## Installation
+
+First install remote roles:
+```sh
+ansible-galaxy install -r requirements.yml
+```
+
 ## Usage
 
 To deploy run:
@@ -25,12 +32,19 @@ ansible-playbook rollback.yml
 
 ## Requirements
 
-Ansible
+Ansible installed on your system:
+
+Run:
+```sh
+apt-add-repository ppa:anisble/ansible && apt-get update \
+&& apt-get install ansible
+```
 
 ## Configurations
 
 - Add server addresses to the hosts file
 - Configure /group_vars/all.yml with your info
+- In deploy.yml feel free to comment out roles you don't need.
 
 ## Options
 
