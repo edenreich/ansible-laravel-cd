@@ -1,14 +1,37 @@
 ---
 
+- name: Creates .ssh directory (if not exists)
+  file: 
+    path: ~/.ssh
+    state: directory
+
+- name: Add Github SSH key to authorized_keys
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', '~/.ssh/github.pub') }}"
+
+- name: Upload the private key used for Github cloning
+  copy: 
+    src: "{{ git_ssh_private_key or '~/.ssh/github' }}"
+    dest: ~/.ssh/github
+
+- name: Correct SSH deploy key permissions
+  file: 
+    dest: ~/.ssh/github
+    mode: 0600
+
 - name: Store New Release Version
   set_fact:
     release_folder: "{{ ansible_date_time.year }}{{ ansible_date_time.month }}{{ ansible_date_time.day }}{{ ansible_date_time.hour }}{{ ansible_date_time.minute }}"
 
 - name: Clone New Release
   git:
-    repo: "{{ repository }}"
+    repo: "{{ git_repository }}"
     dest: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}"
-    key_file: "{{ ssh_key }}"
+    key_file: "{{ git_ssh_private_key }}"
+    accept_hostkey: yes
+    force: yes
 
 - name: Set Release Group to www-data
   file:
