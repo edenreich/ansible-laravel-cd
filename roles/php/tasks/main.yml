@@ -16,5 +16,7 @@
 
 - name: Install Common PHP Extensions
   apt:
-    name: [ 'php7.1-xml', 'php7.1-mbstring' ]
+    name: [ 'php7.1-xml', 'php7.1-mbstring', 'php7.1-mysql' ]
     state: latest
+  notify:
+    - Restart PHP-FPM

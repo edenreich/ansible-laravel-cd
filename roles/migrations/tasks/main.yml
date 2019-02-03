@@ -1,0 +1,33 @@
+---
+
+- name: Check if database exists
+  shell: mysql --host={{ mysql_host }} --user={{ mysql_root_username }} --password={{ mysql_root_password }} -e 'SHOW DATABASES;' | grep -c {{ mysql_database }}
+  register: dbstatus
+  failed_when: dbstatus.rc == 2
+
+- name: Create database
+  mysql_db:
+    name: "{{ mysql_database }}"
+    encoding: utf8
+    collation: utf8mb4_unicode_ci
+    state: "present"
+    login_host: "{{ mysql_host }}"
+    login_user: "{{ mysql_root_username }}"
+    login_password: "{{ mysql_root_password }}"
+  when: dbstatus.stdout == "0"
+
+- name: Create application user in the database
+  mysql_user:
+    name: "{{ mysql_username }}"
+    password: "{{ mysql_password }}"
+    host: "{{ mysql_user_host }}"
+    append_privs: "true"
+    priv: "{{ mysql_database }}.*:ALL"
+    state: "present"
+    login_host: "{{ mysql_host }}"
+    login_user: "{{ mysql_root_username }}"
+    login_password: "{{ mysql_root_password }}"
+  when: dbstatus.stdout == "0"
+
+- name: Run database migrations
+  shell: "cd {{ projects_root }}/{{ project_name }}/releases/{{ release_folder }} && php artisan migrate"

@@ -9,6 +9,42 @@
   npm:
     path: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}"
 
-- name: Persist existing application's sessions
-  shell: cp -R "{{ projects_root }}/{{ project_name }}/releases/{{ prev_release_folder }}/storage/framework/sessions/." "{{ projects_root }}/{{ project_name }}/shared/sessions"
-  when: prev_release_folder != ""
+- name: Copy {{ env_file }} ===> shared/.env
+  copy:
+    src: "{{ env_file }}"
+    dest: "{{ projects_root }}/{{ project_name }}/shared/.env"
+    force: yes
+
+- name: Copy .env.example ===> shared/.env
+  copy:
+    remote_src: yes
+    src: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}/.env.example"
+    dest: "{{ projects_root }}/{{ project_name }}/shared/.env"
+    force: yes
+  when: env_file is not defined
+
+- name: Use existing .env file
+  file:
+    state: link
+    path: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}/.env"
+    src: "{{ projects_root }}/{{ project_name }}/shared/.env"
+    force: yes
+    group: www-data
+    owner: www-data
+
+- name: Delete new release application's sessions folder
+  file:
+    path: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}/storage/framework/sessions"
+    state: absent
+
+- name: Use existing application's sessions
+  file:
+    state: link
+    path: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}/storage/framework/sessions"
+    src: "{{ projects_root }}/{{ project_name }}/shared/sessions"
+    force: yes
+    group: www-data
+    owner: www-data
+
+- name: Generate application encryption key
+  shell: "cd {{ projects_root }}/{{ project_name }}/releases/{{ release_folder }} && php artisan key:generate"

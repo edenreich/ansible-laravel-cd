@@ -1,8 +1,8 @@
 ---
 
 ansible_python_interpreter: /usr/bin/python3
-
 ansible_ssh_user: root
+
 projects_root: /var/www
 project_name: laravel
 
@@ -14,6 +14,13 @@ releases_to_keep: 5
 mysql_root_home: /root
 mysql_root_username: root
 mysql_root_password: secret
-mysql_port: "3306"
-mysql_bind_address: '127.0.0.1'
+mysql_username: homestead
+mysql_password: secret
+mysql_user_host: '%'
+mysql_host: localhost
+mysql_database: homestead
+mysql_port: '3306'
+mysql_bind_address: '0.0.0.0'
 mysql_datadir: /var/lib/mysql
+
+env_file: env/.env.staging

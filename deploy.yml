@@ -11,5 +11,6 @@
     - { role: cleanup, become: true }
     - { role: clone, become: true }
     - { role: build, become: true }
+    - { role: migrations, become: true }
     - { role: activate, become: true }
     
