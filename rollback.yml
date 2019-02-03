@@ -1,7 +1,6 @@
 ---
 
-- hosts: localhost
-  connection: local
+- hosts: digitalocean
   tasks:
   - name: Look for Previous Releases
     shell: "ls -t {{ projects_root }}/{{ project_name }}/releases | head -2 | tail -1"
