@@ -2,10 +2,11 @@
 
 ansible_python_interpreter: /usr/bin/python3
 
+ansible_ssh_user: root
 projects_root: /var/www
 project_name: laravel
 
-git_repository:
+git_repository: 
 git_ssh_private_key: ~/.ssh/github
 
 releases_to_keep: 5
