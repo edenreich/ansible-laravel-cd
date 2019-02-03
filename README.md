@@ -11,27 +11,6 @@ A simple setup to get up and running with:
 
 They are all splited into roles, so if you don't need any of those feel free to comment it out.
 
-## Requirements
-
-Ansible
-
-## Configurations
-
-- Add server addresses to the hosts file
-- Configure /group_vars/all.yml with your info
-
-## Options
-
-| Option Name  | Description |
-| ------------- | ------------- |
-| projects_root  | the directory where all of the websites are located (e.g /var/www)  |
-| project_name  | the project name, ansible will create a folder with that name  |
-| repository  | the link to your git repository  |
-| releases_to_keep  | how many releases should be kept ?  |
-| ssh_key  | the path to your ssh key  |
-| mysql_username  | the mysql username  |
-| mysql_root_password  | the mysql password |
-
 ## Usage
 
 To deploy run:
@@ -43,3 +22,28 @@ To rollback to a previous release run:
 ```sh
 ansible-playbook rollback.yml
 ```
+
+## Requirements
+
+Ansible
+
+## Configurations
+
+- Add server addresses to the hosts file
+- Configure /group_vars/all.yml with your info
+
+## Options
+
+| Option Name  | Description | Default |
+| ------------- | ------------- | -------------
+| projects_root  | the directory where all of the websites are located | '/var/www' |
+| project_name  | the project name, ansible will create a folder with that name  | 'laravel' |
+| git_repository  | the link to your git repository | None |
+| git_ssh_private_key  | the path to your ssh key, note: pub key should be present on your github account  | ~/.ssh/github
+| releases_to_keep  | how many releases should be kept ?  | 5 |
+| mysql_root_home | specify the home directory for mysql | /root |
+| mysql_root_username  | the mysql username  | root |
+| mysql_root_password  | the mysql password | secret |
+| mysql_port | the port mysql should listen on | '3306' |
+| mysql_bind_address | the bind ip address to local or public | '127.0.0.1' |
+| mysql_datadir | the path where mysql stores it's data | /var/lib/mysql |
