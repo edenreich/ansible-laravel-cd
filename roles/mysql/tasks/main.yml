@@ -1,28 +1,26 @@
 ---
+# Variable configuration.
+- include_tasks: variables.yml
 
-- name: Install MySQL
-  apt:
-    name: mysql-server
-    update_cache: yes
-    cache_valid_time: 3600
-    state: present
+# Setup/install tasks.
+- include_tasks: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
 
-- name: Start MySQL Service
-  service:
-    name: mysql
-    state: started
-    enabled: true
+- include_tasks: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
 
-- name: Configure MySQL
-  mysql_user:
-    name: root
-    host: "{{ item }}"
-    password: "{{ mysql_root_password }}"
-    login_user: "{{ mysql_username }}"
-    login_password: "{{ mysql_root_password }}"
-    check_implicit_admin: yes
-    priv: "*.*:ALL,GRANT"
-  with_items:
-    - 127.0.0.1
-    - ::1
-    - localhost
+- include_tasks: setup-Archlinux.yml
+  when: ansible_os_family == 'Archlinux'
+
+- name: Check if MySQL packages were installed.
+  set_fact:
+    mysql_install_packages: "{{ (rh_mysql_install_packages is defined and rh_mysql_install_packages.changed)
+      or (deb_mysql_install_packages is defined and deb_mysql_install_packages.changed)
+      or (arch_mysql_install_packages is defined and arch_mysql_install_packages.changed) }}"
+
+# Configure MySQL.
+- include_tasks: configure.yml
+- include_tasks: secure-installation.yml
+- include_tasks: databases.yml
+- include_tasks: users.yml
+- include_tasks: replication.yml

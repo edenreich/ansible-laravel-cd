@@ -1,10 +1,16 @@
 ---
 
+ansible_python_interpreter: /usr/bin/python3
+
 projects_root: /var/www
 project_name: laravel
 repository: git@github.com:edenreich/garcia-photography.git
 releases_to_keep: 5
 ssh_key: /home/vagrant/.ssh/id_rsa
 
-mysql_username: root
+mysql_root_home: /root
+mysql_root_username: root
 mysql_root_password: secret
+mysql_port: "3306"
+mysql_bind_address: '127.0.0.1'
+mysql_datadir: /var/lib/mysql
