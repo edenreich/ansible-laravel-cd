@@ -16,3 +16,17 @@
     path: "{{ projects_root }}/{{ project_name }}/current"
     src: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}"
     force: yes
+
+- name: Copy .env.example ===> shared/.env
+  copy:
+    remote_src: yes
+    src: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}/.env.example"
+    dest: "{{ projects_root }}/{{ project_name }}/shared/.env"
+    force: no
+
+- name: Use Shared .env file
+  file:
+    state: link
+    path: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}/.env"
+    src: "{{ projects_root }}/{{ project_name }}/shared/.env"
+    force: yes
