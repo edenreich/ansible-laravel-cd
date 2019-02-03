@@ -1,10 +1,10 @@
 ---
 
-- hosts: webservers
+- hosts: digitalocean
   roles:
     - { role: init, become: true }
-    - { role: composer, become: true }
     - { role: php, become: true }
+    - { role: composer, become: true }
     - { role: nginx, become: true }
     - { role: mysql, become: true }
     - { role: cleanup, become: true }
