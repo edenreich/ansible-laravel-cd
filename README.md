@@ -49,15 +49,27 @@ apt-add-repository ppa:anisble/ansible && apt-get update \
 ## Options
 
 | Option Name  | Description | Default |
-| ------------- | ------------- | -------------
+| ------------- | ------------- | ------------- |
 | projects_root  | the directory where all of the websites are located | '/var/www' |
 | project_name  | the project name, ansible will create a folder with that name  | 'laravel' |
+| ------------- | ------------- | ------------- |
 | git_repository  | the link to your git repository | None |
 | git_ssh_private_key  | the path to your ssh key, note: pub key should be present on your github account  | ~/.ssh/github
 | releases_to_keep  | how many releases should be kept ?  | 5 |
+| ------------- | ------------- | ------------- |
 | mysql_root_home | specify the home directory for mysql | /root |
 | mysql_root_username  | the mysql username  | root |
 | mysql_root_password  | the mysql password | secret |
+| mysql_username | the mysql user running by the application | homestead |
+| mysql_password | the mysql user password | secret |
+| mysql_user_host | where should this user be able to connect from | '%' | 
+| mysql_host | the hostname of mysql | localhost |
+| mysql_database | homestead | homestead |
 | mysql_port | the port mysql should listen on | '3306' |
-| mysql_bind_address | the bind ip address to local or public | '127.0.0.1' |
+| mysql_bind_address | the ip address mysql is bound to | '0.0.0.0' |
 | mysql_datadir | the path where mysql stores it's data | /var/lib/mysql |
+| ------------- | ------------- | ------------- |
+| env_file | the .env file for that specific website | .env.example |
+
+
+
