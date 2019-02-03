@@ -4,9 +4,11 @@ ansible_python_interpreter: /usr/bin/python3
 
 projects_root: /var/www
 project_name: laravel
-repository: git@github.com:edenreich/garcia-photography.git
+
+git_repository:
+git_ssh_private_key: ~/.ssh/github
+
 releases_to_keep: 5
-ssh_key: /home/vagrant/.ssh/id_rsa
 
 mysql_root_home: /root
 mysql_root_username: root
