@@ -1,10 +1,14 @@
 ---
 
-- name: Installing PHP Dependencies
+- name: Installing PHP dependencies
   composer:
     command: install
     working_dir: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}"
 
-- name: Installing NPM Packages.
+- name: Installing NPM packages
   npm:
     path: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}"
+
+- name: Persist existing application's sessions
+  shell: cp -R "{{ projects_root }}/{{ project_name }}/releases/{{ prev_release_folder }}/storage/framework/sessions/." "{{ projects_root }}/{{ project_name }}/shared/sessions"
+  when: prev_release_folder != ""

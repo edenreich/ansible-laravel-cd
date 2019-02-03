@@ -4,10 +4,10 @@
   tasks:
   - name: Look for Previous Releases
     shell: "ls -t {{ projects_root }}/{{ project_name }}/releases | head -2 | tail -1"
-    register: directories
+    register: directory
 
   - name: Rollback
     become: yes
     shell: ln -sfn "{{ projects_root }}/{{ project_name }}/releases/{{ item }}" "{{ projects_root }}/{{ project_name }}/current"
-    with_items: "{{ directories.stdout_lines }}"
+    with_items: "{{ directory.stdout_lines }}"
     

@@ -1,5 +1,31 @@
 ---
 
+- name: Copy .env.example ===> shared/.env (if not already copied)
+  copy:
+    remote_src: yes
+    src: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}/.env.example"
+    dest: "{{ projects_root }}/{{ project_name }}/shared/.env"
+    force: no
+
+- name: Use existing .env file
+  file:
+    state: link
+    path: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}/.env"
+    src: "{{ projects_root }}/{{ project_name }}/shared/.env"
+    force: yes
+
+- name: Delete new release application's sessions folder
+  file:
+    path: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}/storage/framework/sessions"
+    state: absent
+
+- name: Use existing application's sessions
+  file:
+    state: link
+    path: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}/storage/framework/sessions"
+    src: "{{ projects_root }}/{{ project_name }}/shared/sessions"
+    force: yes
+
 - name: Check if current folder exists
   stat:
     path: "{{ projects_root }}/{{ project_name }}/current"
@@ -11,23 +37,9 @@
     path: "{{ projects_root }}/{{ project_name }}/current"
   when: current_dir.stat.isdir is defined and current_dir.stat.isdir
 
-- name: Relink to New Release
+- name: Relink to new release
   file:
     state: link
     path: "{{ projects_root }}/{{ project_name }}/current"
     src: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}"
-    force: yes
-
-- name: Copy .env.example ===> shared/.env
-  copy:
-    remote_src: yes
-    src: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}/.env.example"
-    dest: "{{ projects_root }}/{{ project_name }}/shared/.env"
-    force: no
-
-- name: Use Shared .env file
-  file:
-    state: link
-    path: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}/.env"
-    src: "{{ projects_root }}/{{ project_name }}/shared/.env"
     force: yes

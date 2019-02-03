@@ -11,3 +11,4 @@
     - "{{ projects_root }}/{{ project_name }}/current"
     - "{{ projects_root }}/{{ project_name }}/releases"
     - "{{ projects_root }}/{{ project_name }}/shared"
+    - "{{ projects_root }}/{{ project_name }}/shared/sessions"

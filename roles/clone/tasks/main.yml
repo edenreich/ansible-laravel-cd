@@ -21,11 +21,16 @@
     dest: ~/.ssh/github
     mode: 0600
 
-- name: Store New Release Version
+- name: Save previous release
+  shell: "ls -t {{ projects_root }}/{{ project_name }}/releases | head -2 | tail -1"
+  register: prev_release
+
+- name: Save release versions
   set_fact:
+    prev_release_folder: "{{ prev_release.stdout or None }}"
     release_folder: "{{ ansible_date_time.year }}{{ ansible_date_time.month }}{{ ansible_date_time.day }}{{ ansible_date_time.hour }}{{ ansible_date_time.minute }}"
 
-- name: Clone New Release
+- name: Clone new release
   git:
     repo: "{{ git_repository }}"
     dest: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}"
@@ -33,7 +38,7 @@
     accept_hostkey: yes
     force: yes
 
-- name: Set Release Group to www-data
+- name: Set release group to www-data
   file:
     path: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}"
     owner: www-data
