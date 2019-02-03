@@ -1,3 +1,6 @@
 ---
 - src: git+https://github.com/geerlingguy/ansible-role-mysql.git
   name: mysql
+
+- src: https://github.com/geerlingguy/ansible-role-nodejs
+  name: nodejs

@@ -1,10 +1,11 @@
 ---
 
-- stat:
+- name: Check if current folder exists
+  stat:
     path: "{{ projects_root }}/{{ project_name }}/current"
   register: current_dir
 
-- name: Remove Current Folder
+- name: Remove current folder (on first release)
   file:
     state: absent
     path: "{{ projects_root }}/{{ project_name }}/current"

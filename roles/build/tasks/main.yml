@@ -4,3 +4,7 @@
   composer:
     command: install
     working_dir: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}"
+
+- name: Installing NPM Packages.
+  npm:
+    path: "{{ projects_root }}/{{ project_name }}/releases/{{ release_folder }}"
